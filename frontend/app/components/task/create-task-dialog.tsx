@@ -154,7 +154,7 @@ const CreateTaskDialog = ({
                                                             <SelectContent>
                                                                 <SelectItem value="Low">Low</SelectItem>
                                                                 <SelectItem value="Medium">Medium</SelectItem>
-                                                                <SelectItem value="Done">Done</SelectItem>
+                                                                <SelectItem value="High">High</SelectItem>
                                                             </SelectContent>
                                                         </FormItem>
                                                     </Select>
