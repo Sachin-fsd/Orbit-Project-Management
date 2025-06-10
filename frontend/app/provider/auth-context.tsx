@@ -1,4 +1,4 @@
-import type { User } from '@/routes/types';
+import type { User } from '@/types';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { queryClient } from './react-query-provider';
 import { useLocation, useNavigate } from 'react-router';
@@ -15,8 +15,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
@@ -30,9 +30,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             if (token && userInfo) {
                 setIsAuthenticated(true);
                 setUser(JSON.parse(localStorage.getItem('user') || '{}'));
-                // if (isPublicRoute) {
+                if (isPublicRoute) {
                     navigate('/dashboard');
-                // }
+                }
             } else {
                 setIsAuthenticated(false);
                 setUser(null);

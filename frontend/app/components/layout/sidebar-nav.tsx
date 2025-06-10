@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { Workspace } from "@/routes/types";
+import type { Workspace } from "@/types";
 import type { LucideIcon } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Button } from "../ui/button";

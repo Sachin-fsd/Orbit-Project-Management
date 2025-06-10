@@ -1,8 +1,6 @@
-import { Schema, modal } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-
-
-const WorkSpaceModal = new Schema({
+const WorkSpaceSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -19,9 +17,8 @@ const WorkSpaceModal = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
     },
-    members : [
+    members: [
         {
             user: {
                 type: Schema.Types.ObjectId,
@@ -46,5 +43,5 @@ const WorkSpaceModal = new Schema({
     ]
 }, { timestamps: true });
 
-const WorkSpace = modal('WorkSpace', WorkSpaceModal);
-export default WorkSpace
+const WorkSpace = new mongoose.model('WorkSpace', WorkSpaceSchema);
+export default WorkSpace;

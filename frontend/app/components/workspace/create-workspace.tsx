@@ -8,6 +8,9 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+import { useCreateWorkspace } from "@/hooks/use-workspace";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 interface CreateWorkspaceProps {
 
@@ -27,7 +30,7 @@ export const colorOptions = [
     "#F39C12", // Orange
 ];
 
-type WorkspaceForm = z.infer<typeof workspaceSchema>;
+export type WorkspaceForm = z.infer<typeof workspaceSchema>;
 
 
 export const CreateWorkspace = ({
@@ -44,11 +47,21 @@ export const CreateWorkspace = ({
         },
     });
 
-    const isPending = false;
+    const {mutate, isPending} = useCreateWorkspace();
+    const navigate = useNavigate();
 
     const onSubmit = (data: WorkspaceForm) => {
-        setIsCreatingWorkspace(true);
-        console.log(data);
+        mutate(data, {
+            onSuccess: (data:any) => {
+                setIsCreatingWorkspace(false);
+                toast.success("Workspace created successfully");
+                navigate(`/workspaces/${data._id}`);
+            },
+            onError: (error: any) => {
+                console.log(error);
+                toast.error(error?.response?.data?.message || "Failed to create workspace");
+            },
+        });
     }
 
     return (
@@ -101,7 +114,7 @@ export const CreateWorkspace = ({
                                                 {colorOptions.map((color) => (
                                                     <div
                                                         key={color}
-                                                        className={cn("w-6 h-6 rounded cursor-pointer", field.value === color && "ring-2 ring-offset-2 ring-offset-background ring-white")}
+                                                        className={cn("w-6 h-6 rounded cursor-pointer ", field.value === color && "ring-2 ring-offset-2 ring-offset-background ring-white" )}
                                                         style={{ backgroundColor: color }}
                                                         onClick={() => field.onChange(color)}
                                                     />

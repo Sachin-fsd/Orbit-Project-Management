@@ -1,3 +1,4 @@
+import { ProjectStatus } from '@/types';
 import { z } from 'zod';
 
 export const signInSchema = z.object({
@@ -28,4 +29,25 @@ export const workspaceSchema = z.object({
   name: z.string().min(1, "Name is required"),
   color: z.string().min(1, "Color is required"),
   description: z.string().optional(),
+});
+
+
+export const projectSchema = z.object({
+  title: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
+  status: z.nativeEnum(ProjectStatus),
+  startDate: z.string(),
+  dueDate: z.string(),
+  members: z.array(z.object({ user: z.string(), role: z.enum(["manager", "contributor", "viewer"]) })).optional(),
+  tags: z.string().optional(),
+});
+
+
+export const createTaskSchema = z.object({
+  title: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
+  status: z.enum(["To Do", "In Progress", "Done"]),
+  dueDate: z.string().optional(),
+  priority: z.enum(["Low", "Medium", "High"]),
+  assignees: z.array(z.string()).min(1, "Assignees are required"),
 });

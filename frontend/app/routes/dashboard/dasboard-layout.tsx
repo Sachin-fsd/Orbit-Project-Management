@@ -4,9 +4,25 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/provider/auth-context';
 import React, { useState } from 'react'
 import { Outlet, useNavigate } from 'react-router';
-import type { Workspace } from '../types';
+import type { Workspace } from '../../types';
 import { SidebarComponent } from '@/components/layout/sidebar-component';
 import { CreateWorkspace } from '@/components/workspace/create-workspace';
+import { fetchData } from '@/lib/fetch-utils';
+
+
+export const clientLoader = async () => {
+  try {
+    const [workspaces] = await Promise.all([
+      fetchData("/workspaces"),  
+    ])
+
+    return {
+      workspaces
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const DashboardLayout = () => {
   const navigate = useNavigate();

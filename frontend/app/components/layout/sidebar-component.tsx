@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/provider/auth-context";
-import type { Workspace } from "@/routes/types";
+import type { Workspace } from "@/types";
 import { ChevronLeft, ChevronRight, LayoutDashboard, ListCheck, LogOut, Settings, Users, Wrench } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
