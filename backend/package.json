@@ -25,6 +25,7 @@
     "morgan": "^1.10.0",
     "nodemailer": "^7.0.3",
     "nodemon": "^3.1.10",
+    "pusher": "^5.2.0",
     "socket.io": "^4.8.1",
     "zod": "^3.25.51",
     "zod-express-middleware": "^1.4.0"

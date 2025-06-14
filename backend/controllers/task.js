@@ -4,7 +4,7 @@ import WorkSpace from "../models/workspace.modal.js";
 import { recordActivity } from "../libs/index.js";
 import ActivityLog from "../models/activity.modal.js";
 import Comment from "../models/comment.modal.js";
-import { io } from "../index.js";
+import { pusher } from "../libs/pusher.js";
 
 
 
@@ -422,13 +422,12 @@ const addComment = async (req, res) => {
             description: `added comment ${text.substring(0, 50) + (text.length > 50 ? '...' : '')}`
         });
 
-        // Populate author for real-time update
         const populatedComment = await Comment.findById(newComment._id).populate("author", "name profilePicture");
 
-        // --- EMIT SOCKET EVENT ---
-        io.to(taskId).emit("new-comment", populatedComment);
+        // --- PUSHER EVENT ---
+        pusher.trigger(`task-${taskId}`, "new-comment", populatedComment);
 
-        res.status(200).json(newComment);
+        res.status(200).json(populatedComment);
 
     } catch (error) {
         console.log(error)

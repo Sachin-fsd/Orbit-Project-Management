@@ -22,8 +22,6 @@ const updateUserProfile = async (req, res) => {
   try {
     const { name, profilePicture } = req.body;
 
-    console.log(name, profilePicture)
-
     const user = await User.findById(req.user._id);
 
     if (!user) {
@@ -46,8 +44,6 @@ const updateUserProfile = async (req, res) => {
 const changePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword, confirmPassword } = req.body;
-
-    console.log(currentPassword, newPassword, confirmPassword)
 
     const user = await User.findById(req.user.userId).select("+password");
 

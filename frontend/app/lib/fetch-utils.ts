@@ -44,7 +44,6 @@ api.interceptors.response.use(
 const postData = async <T>(url: string, data: unknown): Promise<T> => {
     try {
         const response = await api.post(url, data);
-        console.log("Response data:", response);
         return response.data;
     } catch (error) {
         console.error("Error posting data:", error);
@@ -55,8 +54,6 @@ const postData = async <T>(url: string, data: unknown): Promise<T> => {
 const fetchData = async <T>(url: string): Promise<T> => {
     try {
         const response = await api.get(url);
-        console.log("response: ",response)
-        console.log("Response data:", response.data);
         return response.data;
     } catch (error) {
         console.error("Error getting data:", error);
@@ -67,7 +64,6 @@ const fetchData = async <T>(url: string): Promise<T> => {
 const updateData = async <T>(url: string, data: T): Promise<T> => {
     try {
         const response = await api.put(url, data);
-        console.log("Response data:", response.data);
         return response.data;
     } catch (error) {
         console.error("Error putting data:", error);

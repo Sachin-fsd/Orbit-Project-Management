@@ -80,8 +80,6 @@ export const getWorkspaceStats = async (req, res) => {
     try {
         const { workspaceId } = req.params;
 
-        console.log(workspaceId)
-
         const workspace = await WorkSpace.findById(workspaceId);
         if (!workspace) {
             return res.status(404).json({ message: 'Workspace not found' });

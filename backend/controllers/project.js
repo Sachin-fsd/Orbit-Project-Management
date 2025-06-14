@@ -77,7 +77,6 @@ const getProjectTasks = async (req, res) => {
         }
 
         const isMember = project.members.some((member) => member.user._id.toString() === req.user.userId.toString());
-        console.log("isMember", isMember)
         if (!isMember) {
             return res.status(403).json({ message: 'You are not a member of this project' });
         }

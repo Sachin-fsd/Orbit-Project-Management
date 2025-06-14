@@ -24,7 +24,6 @@ export const useGetWokspaceQuery = (workspaceId: string) => {
 }
 
 export const useGetWorkspaceStatsQuery = (workspaceId: string) => {
-    console.log("workspaceId in fetch", workspaceId)
     return useQuery({
         queryKey: ["workspace", workspaceId, "stats"],
         queryFn: async () => await fetchData(`/workspaces/${workspaceId}/stats`),

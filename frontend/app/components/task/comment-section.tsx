@@ -12,7 +12,8 @@ import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { formatDistanceToNow } from "date-fns";
 import { Loader } from "../loader";
-import { useSocket } from "@/provider/socket-context";
+import Pusher from "pusher-js";
+import { usePusher } from "@/provider/pusher-context";
 
 export const CommentSection = ({
   taskId,
@@ -21,47 +22,35 @@ export const CommentSection = ({
   taskId: string;
   members: User[];
 }) => {
+  const pusher = usePusher()
   const [newComment, setNewComment] = useState("");
   const [liveComments, setLiveComments] = useState<Comment[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { mutate: addComment, isPending } = useAddCommentMutation();
-  const { data: comments, isLoading, error } = useGetCommentsByTaskIdQuery(taskId) as {
+  const { data: comments, isLoading, error, refetch } = useGetCommentsByTaskIdQuery(taskId) as {
     data: Comment[];
     isLoading: boolean;
     error?: any;
+    refetch?: () => void;
   };
 
-  const socket = useSocket();
-
-  // Join room on mount, leave on unmount
+  // --- Pusher Setup ---
   useEffect(() => {
     if (!taskId) return;
-    socket.connect();
-    socket.emit("join-task", taskId);
-
-    return () => {
-      socket.emit("leave-task", taskId);
-      socket.disconnect();
-    };
-    // eslint-disable-next-line
-  }, [taskId]);
-
-  // Listen for new comments
-  useEffect(() => {
-    const handleNewComment = (comment: Comment) => {
-      setLiveComments((prev) => [comment,...prev]);
-      // Optionally scroll to bottom
+    const channel = pusher.subscribe(`task-${taskId}`);
+    const handler = (comment: Comment) => {
+      setLiveComments((prev) => [...prev, comment]);
       scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
     };
-    socket.on("new-comment", handleNewComment);
-    return () => {
-      socket.off("new-comment", handleNewComment);
-    };
-    // eslint-disable-next-line
-  }, [socket]);
+    channel.bind("new-comment", handler);
 
-  // Reset live comments when task changes or comments refetch
+    return () => {
+      channel.unbind("new-comment", handler);
+      pusher.unsubscribe(`task-${taskId}`);
+    };
+  }, [taskId]);
+
   useEffect(() => {
     setLiveComments([]);
   }, [taskId, comments]);
@@ -99,7 +88,13 @@ export const CommentSection = ({
     );
 
   // Combine initial comments and live comments (avoid duplicates)
-  const allComments = [...liveComments.filter(lc => !(comments || []).some(c => c._id === lc._id)),...(comments || []), ];
+  const allComments = [
+    ...liveComments.filter(
+      (lc) => !(comments || []).some((c) => c._id === lc._id)
+    ),
+    ...(comments || []),
+
+  ];
 
   return (
     <div className="bg-white/90 rounded-lg p-6 shadow-sm">
