@@ -15,6 +15,7 @@ const registerUser = async (req, res) => {
         console.log("Arcjet decision", decision.conclusion);
 
         if (decision.isDenied()) {
+            console.log("Arcjet denied request", email)
             res.writeHead(403, { "Content-Type": "application/json" });
             res.end(JSON.stringify({ message: "Invalid email address" }));
             return;
@@ -66,7 +67,7 @@ const registerUser = async (req, res) => {
             return res.status(500).json({ message: 'Failed to send verification email' });
         }
 
-
+        console.log('User registered successfully, verify the email', newUser);
         res.status(201).json({ message: 'User registered successfully, verify the email', user: newUser });
     } catch (error) {
         console.error('Error registering user:', error);

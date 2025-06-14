@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import { validateRequest } from "zod-express-middleware";
 import { emailSchema, loginSchema, registerSchema, resetPasswordSchema, verifyEmailSchema } from '../libs/validate-schema.js';
 import { loginUser, registerUser, resetPasswordReqquest, verifyEmail, verifyResetPasswordTokenAndResetPassword } from '../controllers/auth-controller.js';
+import { authMiddleware } from '../middleware/auth-middleware.js';
 
 
 const router = express.Router();
@@ -41,5 +42,9 @@ router.post("/reset-password",
     }),
     verifyResetPasswordTokenAndResetPassword
 )
+
+router.get("/validate", authMiddleware, (req, res) => {
+    res.status(200).json({ message: "User is authenticated" })
+})
 
 export default router;

@@ -38,7 +38,7 @@ export const projectSchema = z.object({
   status: z.nativeEnum(ProjectStatus),
   startDate: z.string(),
   dueDate: z.string(),
-  members: z.array(z.object({ user: z.string(), role: z.enum(["manager", "contributor", "viewer"]) })).optional(),
+  members: z.array(z.object({ user: z.string(), role: z.enum(["manager", "contributor", "viewer"]) })).min(1, "Members are required"),
   tags: z.string().optional(),
 });
 
@@ -47,7 +47,12 @@ export const createTaskSchema = z.object({
   title: z.string().min(1, "Name is required"),
   description: z.string().optional(),
   status: z.enum(["To Do", "In Progress", "Done"]),
-  dueDate: z.string().optional(),
+  dueDate: z.string().min(1, "Due date is required"),
   priority: z.enum(["Low", "Medium", "High"]),
   assignees: z.array(z.string()).min(1, "Assignees are required"),
+});
+
+export const inviteMemberSchema = z.object({
+    email: z.string().email('Invalid email address'),
+    role: z.enum(['admin', 'member', 'viewer'])
 });

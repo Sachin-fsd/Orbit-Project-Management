@@ -1,6 +1,6 @@
-import { postData } from "@/lib/fetch-utils";
+import { fetchData, postData } from "@/lib/fetch-utils";
 import type { SignUpFormData } from "@/routes/auth/sign-up";
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 
 
@@ -32,5 +32,12 @@ export const useForgotPasswordMutation = () => {
 export const useResetPasswordMutation = () => {
   return useMutation({
     mutationFn: (data: {token : string, newPassword : string, confirmPassword : string}) => postData("/auth/reset-password", data),
+  });
+};
+
+export const useIsAuthenticatedQuery = () => {
+  return useQuery({
+    queryKey: ["isAuthenticated"],
+    queryFn: () => fetchData("/auth/validate"),
   });
 };

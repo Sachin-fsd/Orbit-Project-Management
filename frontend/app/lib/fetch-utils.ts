@@ -55,7 +55,7 @@ const postData = async <T>(url: string, data: unknown): Promise<T> => {
 const fetchData = async <T>(url: string): Promise<T> => {
     try {
         const response = await api.get(url);
-        console.log(response)
+        console.log("response: ",response)
         console.log("Response data:", response.data);
         return response.data;
     } catch (error) {

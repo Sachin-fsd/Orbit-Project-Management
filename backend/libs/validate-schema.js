@@ -32,6 +32,11 @@ const workspaceSchema = z.object({
     description: z.string().optional(),
 });
 
+const inviteMemberSchema = z.object({
+    email: z.string().email('Invalid email address'),
+    role: z.enum(["admin", "member", "viewer"])
+});
+
 const projectSchema = z.object({
     title: z.string().min(1, 'Name is required'),
     description: z.string().optional(),
@@ -51,4 +56,15 @@ const taskSchema = z.object({
     dueDate: z.string().min(1, 'Due date is required'),
 })
 
-export { registerSchema, loginSchema, verifyEmailSchema, resetPasswordSchema, emailSchema, workspaceSchema, projectSchema, taskSchema };
+export { 
+    registerSchema, 
+    loginSchema, 
+    verifyEmailSchema, 
+    resetPasswordSchema, 
+    emailSchema, 
+    workspaceSchema, 
+    projectSchema, 
+    taskSchema,
+    inviteMemberSchema 
+
+};
