@@ -40,7 +40,7 @@ export const CommentSection = ({
     if (!taskId) return;
     const channel = pusher.subscribe(`task-${taskId}`);
     const handler = (comment: Comment) => {
-      setLiveComments((prev) => [...prev, comment]);
+      setLiveComments((prev) => [comment,...prev, ]);
       scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
     };
     channel.bind("new-comment", handler);
