@@ -32,7 +32,7 @@ const SignInPage = () => {
     mutate(values, {
       onSuccess: (data) => {
         form.reset();
-        login(data)
+        login(data);
         toast.success("Successfully logged in");
         navigate("/dashboard");
       },

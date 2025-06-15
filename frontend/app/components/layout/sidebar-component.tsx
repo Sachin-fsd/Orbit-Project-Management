@@ -30,10 +30,13 @@ export const SidebarComponent = ({
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
 
+  // Get workspaceId from localStorage
+  const workspaceId = localStorage.getItem("selectedWorkspaceId");
+
   const navItems = [
     {
       title: "Dashboard",
-      href: "/dashboard",
+      href: `/dashboard${workspaceId ? `?workspaceId=${workspaceId}` : ""}`,
       icon: LayoutDashboard,
       color: "text-blue-500",
     },
@@ -45,19 +48,19 @@ export const SidebarComponent = ({
     },
     {
       title: "My Tasks",
-      href: "/my-tasks",
+      href: `/my-tasks${workspaceId ? `?workspaceId=${workspaceId}` : ""}`,
       icon: ListCheck,
       color: "text-purple-500",
     },
     {
       title: "Members",
-      href: "/members",
+      href: `/members${workspaceId ? `?workspaceId=${workspaceId}` : ""}`,
       icon: Users,
       color: "text-pink-500",
     },
     {
       title: "Settings",
-      href: "/settings",
+      href: `/settings${workspaceId ? `?workspaceId=${workspaceId}` : ""}`,
       icon: Settings,
       color: "text-amber-500",
     },
@@ -113,7 +116,7 @@ export const SidebarComponent = ({
       <ScrollArea className="flex-1 px-2 py-2">
         <nav className="flex flex-col gap-2">
           {navItems.map((item) => {
-            const isActive = location.pathname.startsWith(item.href);
+            const isActive = location.pathname.startsWith(item.href.split("?")[0]);
             return (
               <Link
                 key={item.title}

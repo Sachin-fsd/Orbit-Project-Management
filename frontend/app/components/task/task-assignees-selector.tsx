@@ -36,6 +36,10 @@ export const TaskAssigneesSelector = ({
     } else {
       newSelected = [...selectedIds, id];
     }
+    if(newSelected.length == 0){
+      toast.error("Please select at least one assignee");
+      return;
+    }
     setSelectedIds(newSelected);
   };
 

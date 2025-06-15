@@ -14,7 +14,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Link, useLoaderData, useLocation, useNavigate } from "react-router";
 import { WorkspaceAvatar } from "../workspace/workspace-avatar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface HeaderProps {
   onWorkspaceSelected: (workspace: Workspace) => void;
@@ -36,7 +36,18 @@ export const Header = ({
     navigate("/sign-in");
     return null;
   }
+
   const { workspaces } = loaderData;
+  useEffect(() => {
+    const savedId = localStorage.getItem("selectedWorkspaceId");
+    if (savedId && workspaces.length > 0) {
+      const ws = workspaces.find(w => w._id === savedId);
+      if (ws) {
+        onWorkspaceSelected(ws);
+      }
+    }
+    // eslint-disable-next-line
+  }, [workspaces]);
   const isOnWorkspacePage = useLocation().pathname.includes("workspace");
 
   const handleOnClick = (workspace: Workspace) => {

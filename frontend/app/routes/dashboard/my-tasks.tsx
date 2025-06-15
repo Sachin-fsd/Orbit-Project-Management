@@ -103,7 +103,6 @@ const MyTasks = () => {
     (task) => task.status === "In Progress"
   );
   const doneTasks = sortedTasks.filter((task) => task.status === "Done");
-
   if (isLoading)
     return (
       <div>

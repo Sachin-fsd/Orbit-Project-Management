@@ -557,7 +557,6 @@ export const deleteTask = async (req, res) => {
         const project = await Project.findById(task.project);
         if (!project) return res.status(404).json({ message: "Project not found" });
 
-        // You may want to check workspace permissions as well
         // For now, allow if user is in assignees or project owner
         const isAssignee = task.assignees.some(a => a.toString() === userId.toString());
         const isProjectOwner = project.owner?.toString() === userId.toString();
