@@ -22,6 +22,8 @@ const updateUserProfile = async (req, res) => {
   try {
     const { name, profilePicture } = req.body;
 
+    console.log("name", name, "profilePicture", profilePicture)
+
     const user = await User.findById(req.user._id);
 
     if (!user) {

@@ -34,7 +34,12 @@ const SignInPage = () => {
         form.reset();
         login(data);
         toast.success("Successfully logged in");
-        navigate("/dashboard");
+        const workspaceId = localStorage.getItem("selectedWorkspaceId");
+        if (workspaceId) {
+          navigate(`/dashboard?workspaceId=${workspaceId}`);
+        } else {
+          navigate("/dashboard");
+        }
       },
       onError: (error: any) => {
         toast.error(error?.response?.data?.message || "Failed to login");

@@ -132,6 +132,18 @@ const Profile = () => {
       }
     );
   };
+  const DEFAULT_AVATARS = [
+  "https://cdn-icons-png.flaticon.com/512/847/847969.png", // abstract user icon
+  "https://cdn-icons-png.flaticon.com/512/2922/2922510.png", // flat avatar
+  "https://cdn-icons-png.flaticon.com/512/9131/9131529.png", // faceless cartoon
+  "https://cdn-icons-png.flaticon.com/512/4333/4333609.png", // minimal profile
+  "https://cdn-icons-png.flaticon.com/512/456/456212.png",   // silhouette
+  "https://cdn-icons-png.flaticon.com/512/1077/1077114.png", // generic avatar
+  "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", // flat design
+  "https://cdn-icons-png.flaticon.com/512/149/149071.png",   // default user
+  "https://cdn-icons-png.flaticon.com/512/3135/3135715.png", // faceless icon
+  "https://cdn-icons-png.flaticon.com/512/1154/1154461.png"  // abstract profile
+];
 
   if (isPending)
     return (
@@ -176,26 +188,29 @@ const Profile = () => {
                     {user?.name?.charAt(0) || "U"}
                   </AvatarFallback>
                 </Avatar>
-                <div>
-                  <input
-                    id="avatar-upload"
-                    type="file"
-                    accept="image/*"
-                    // onChange={handleAvatarChange}
-                    // disabled={uploading || isUpdatingProfile}
-                    style={{ display: "none" }}
-                  />
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    onClick={() =>
-                      document.getElementById("avatar-upload")?.click()
-                    }
-                    // disabled={uploading || isUpdatingProfile}
-                  >
-                    Change Avatar
-                  </Button>
+              </div>
+              <div>
+                <label className="block mb-2 font-medium text-sm text-gray-700">
+                  Choose an avatar
+                </label>
+                <div className="grid grid-cols-5 gap-3 mb-4">
+                  {DEFAULT_AVATARS.map((url) => (
+                    <button
+                      type="button"
+                      key={url}
+                      className={`rounded-full border-2 p-1 transition-all ${profileForm.watch("profilePicture") === url
+                        ? "border-indigo-500 ring-2 ring-indigo-300"
+                        : "border-transparent"
+                        }`}
+                      onClick={() => profileForm.setValue("profilePicture", url)}
+                    >
+                      <img
+                        src={url}
+                        alt="avatar"
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    </button>
+                  ))}
                 </div>
               </div>
               <FormField
