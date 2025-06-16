@@ -29,10 +29,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setIsLoading(true);
       try {
         const storedUser = localStorage.getItem("user");
+        const token = localStorage.getItem("token");
 
-        if (storedUser) {
+        if (storedUser && token) {
           setUser(JSON.parse(storedUser));
           setIsAuthenticated(true);
+          const workspaceId = localStorage.getItem("selectedWorkspaceId");
+
+          if (isPublicRoute) {
+            navigate(`/dashboard${workspaceId ? `?workspaceId=${workspaceId}` : ""}`);
+          }
         } else {
           setUser(null);
           setIsAuthenticated(false);

@@ -217,3 +217,12 @@ export const useDeleteTaskMutation = () => {
       await deleteData(`/tasks/${taskId}`),
   });
 };
+
+// hooks/use-task.ts
+export const useGetArchivedTasksQuery = (workspaceId: string) => {
+  return useQuery({
+    queryKey: ["archived-tasks", workspaceId],
+    queryFn: async () => await fetchData(`/tasks/archived?workspaceId=${workspaceId}`),
+    // enabled: !!workspaceId,
+  });
+};

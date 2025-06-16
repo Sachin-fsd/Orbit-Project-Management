@@ -579,6 +579,37 @@ export const deleteTask = async (req, res) => {
     }
 };
 
+// controllers/task.js
+export const getArchivedTasks = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { workspaceId } = req.query;
+
+    if (!workspaceId) {
+      return res.status(400).json({ message: "workspaceId is required" });
+    }
+
+    // Find all projects in the workspace where user is a member
+    const projects = await Project.find({
+      workspace: workspaceId,
+      "members.user": userId,
+    });
+
+    const projectIds = projects.map((p) => p._id);
+    const tasks = await Task.find({
+      isArchived: true,
+      project: { $in: projectIds },
+    })
+      .populate("project", "workspace _id title")
+      .sort({ updatedAt: -1 });
+
+    res.json(tasks);
+  } catch (error) {
+    console.log("getArchivedTasks",error);
+    res.status(500).json({ message: "Failed to fetch archived tasks", error: error.message });
+  }
+};
+
 export {
     createTask,
     getTaskById,

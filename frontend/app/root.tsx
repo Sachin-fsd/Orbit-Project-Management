@@ -28,9 +28,37 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+
         <meta charSet="utf-8" />
+        <title>Orbit | Agile Project Management </title>
+        <meta name="title" content="Orbit | Agile Project Management " />
+        <meta name="description" content="This project management app is designed to streamline task tracking, resource allocation, and communication for teams, ensuring efficient project execution and timely delivery. It offers a user-friendly interface and powerful tools to help manage project timelines, budgets, and milestones effectively." />
+
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="author" content="Sachin" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="renderer" content="webkit" />
+
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://orbit-agile.vercel.app/" />
+        <meta property="og:title" content="Orbit | Agile Project Management " />
+        <meta property="og:description" content="This project management app is designed to streamline task tracking, resource allocation, and communication for teams, ensuring efficient project execution and timely delivery. It offers a user-friendly interface and powerful tools to help manage project timelines, budgets, and milestones effectively." />
+        <meta property="og:image" content="https://tools.w3cub.com/assets/meta-tag-logo.png" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://orbit-agile.vercel.app/" />
+        <meta property="twitter:title" content="Orbit | Agile Project Management " />
+        <meta property="twitter:description" content="This project management app is designed to streamline task tracking, resource allocation, and communication for teams, ensuring efficient project execution and timely delivery. It offers a user-friendly interface and powerful tools to help manage project timelines, budgets, and milestones effectively." />
+        <meta property="twitter:image" content="https://tools.w3cub.com/assets/meta-tag-logo.png" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/site.webmanifest" />
         <title>Orbit Agile Task Management</title>
         <Meta />
         <Links />

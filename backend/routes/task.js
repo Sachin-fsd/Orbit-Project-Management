@@ -3,7 +3,7 @@ import { validateRequest } from "zod-express-middleware";
 import { z } from "zod";
 import { authMiddleware } from "../middleware/auth-middleware.js";
 import { taskSchema } from "../libs/validate-schema.js";
-import { addComment, addSubTask, archiveTask, createTask, deleteTask, getActivityByResourceId, getCommentsByTaskId, getMyTasks, getTaskById, updateSubTask, updateTaskAssignees, updateTaskDescription, updateTaskPriority, updateTaskStatus, updateTaskTitle, watchTask } from "../controllers/task.js";
+import { addComment, addSubTask, archiveTask, createTask, deleteTask, getActivityByResourceId, getArchivedTasks, getCommentsByTaskId, getMyTasks, getTaskById, updateSubTask, updateTaskAssignees, updateTaskDescription, updateTaskPriority, updateTaskStatus, updateTaskTitle, watchTask } from "../controllers/task.js";
 
 const router = express.Router();
 
@@ -36,6 +36,8 @@ router.post("/:taskId/archived", authMiddleware, validateRequest({
 }), archiveTask)
 
 router.get("/my-tasks", authMiddleware, getMyTasks)
+
+router.get("/archived", authMiddleware, getArchivedTasks);
 
 
 router.get("/:taskId", authMiddleware, validateRequest({
@@ -83,7 +85,6 @@ router.delete(
   validateRequest({ params: z.object({ taskId: z.string() }) }),
   deleteTask
 );
-
 
 
 export default router

@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/provider/auth-context";
 import type { Workspace } from "@/types";
 import {
+  Archive,
   ChevronLeft,
   ChevronRight,
   FolderKanban,
@@ -63,6 +64,12 @@ export const SidebarComponent = ({
       href: `/settings${workspaceId ? `?workspaceId=${workspaceId}` : ""}`,
       icon: Settings,
       color: "text-amber-500",
+    },
+    {
+      title: "Archived",
+      href: `/archived${workspaceId ? `?workspaceId=${workspaceId}` : ""}`,
+      icon: Archive,
+      color: "text-red-500",
     },
   ];
 
