@@ -46,13 +46,13 @@ It combines a beautiful UI, real-time collaboration, and powerful features to he
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/6190356/273420237-8e7e2c6e-2e8c-4b2e-9e3b-2e2e6e7e2e2e.png" width="700" alt="Dashboard" />
+   <img src="https://github.com/Sachin-fsd/all-images/blob/main/orbit-home-page.png?raw=true" width="700" alt="Dashboard" />
   <br>
   <i>Dashboard - Kanban Board</i>
 </p>
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/6190356/273420238-9e7e2c6e-2e8c-4b2e-9e3b-2e2e6e7e2e2e.png" width="700" alt="Workspace Settings" />
+  <img src="https://github.com/Sachin-fsd/all-images/blob/main/orbit-home-page.png?raw=true" width="700" alt="Workspace Settings" />
   <br>
   <i>Workspace Settings - Customization & Members</i>
 </p>
@@ -70,8 +70,8 @@ It combines a beautiful UI, real-time collaboration, and powerful features to he
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/sachin-fsd/orbit-agile-task-management.git
-cd orbit-agile-task-management
+git clone https://github.com/sachin-fsd/orbit-project-management.git
+cd orbit-project-management
 ```
 
 ### 2. Install dependencies
